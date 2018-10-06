@@ -29,17 +29,22 @@ def main():
         player = Player.character_setup()
     elif(args.savefile):
         savefile = args.savefile
-        print(f"set savefile to {savefile}")
+        print("set file to", savefile)
 
+    welcome = 0
     game = True
     while game:
         selection = None
         input_required = True
         while input_required:
-            print("Welcome to Prog0 Village! \nWhat do you want to do?")
-            print("\t1) Inventory\n\t2) Merchant\n\t3) Blacksmith\n\t4) Druid\n\t5) Dungeon\n\t6) Save game\n\t0) Quit game")
+            if(welcome == 0):
+                print("Welcome to Prog0 Village! \nWhat do you want to do?")
+                welcome += 1
+            else:
+                print("> Welcome to Prog0 Village! \nWhat do you want to do?")
 
-            option = int(input())
+            option = int(input(
+                "\t1) Inventory\n\t2) Merchant\n\t3) Blacksmith\n\t4) Druid\n\t5) Dungeon\n\t6) Save game\n\t0) Quit game\n"))
 
             if(option in range(0, 7)):
                 input_required = False
@@ -48,10 +53,14 @@ def main():
                 print("Invalid choice. Try again.")
 
         if(selection == 0):
-            print("> Save before exiting? (Y/N)")
-            should_exit = input()
-            if(should_exit.lower() == "y"):
+            should_exit = input("> Save before exiting? (Y/N)").lower()
+            if(should_exit == "y"):
                 game = False
+                return
+            elif(should_exit == "n"):
+                game = False
+                return
+
         elif(selection == 1):
             player.showInventory()
         elif(selection == 2):

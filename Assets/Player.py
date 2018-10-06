@@ -138,7 +138,7 @@ class Player:
                         print("Item does not exist.")
 
             else:
-                print("Your inventory is empty.")
+                print("> Your inventory is empty.")
                 require_input = False
 
     def toDic(self):

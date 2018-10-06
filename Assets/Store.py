@@ -7,7 +7,7 @@ class Store:
         input_required = True
         while input_required:
             print(
-                f"Welcome to the {self.name}!\nYou have {player.gold} gold to spend. This is what I'm selling:")
+                f"> Welcome to the {self.name}\nYou have {player.gold} gold to spend. This is what I'm selling:")
             self.list_items()
             print("Type 'quit' or the name of the item you want to buy.")
 
@@ -22,7 +22,7 @@ class Store:
                         found = item
                 if(found != None):
                     if(player.gold >= item.price):
-                        print(f"You have chosen {found.name}.")
+                        print(f"> You have chosen {found.name}.")
                         player.buyItem(found)
                         print(f"You have {player.gold} gold left.\n")
 
