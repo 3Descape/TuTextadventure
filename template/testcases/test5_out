@@ -1,0 +1,206 @@
+Welcome to P0 Dungeon Quest character creator!
+Enter your name: You have 100 points to assign to your character.
+Start now to assign those Points to your characters attack, defense and speed.
+Attack: Defense: Speed: Before you store your character please confirm your stats!
+Name: Player1
+Attributes:
+
+  * Attack: 1
+  * Defense: 1
+  * Speed: 1
+
+Is this correct? (Y/N) Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> REGEX{You see .*}
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> You see the following enemies:
+
+  1) Rat             (30 HP)
+  2) Gnoll           (60 HP)
+
+You have 100 health.
+Which enemy would you like to attack?
+> Rat attacked you and dealt 9 damage.
+Gnoll attacked you and dealt 29 damage.
+You attacked Rat and dealt 0 damage.
+You see the following enemies:
+
+  1) Rat             (30 HP)
+  2) Gnoll           (60 HP)
+
+You have 62 health.
+Which enemy would you like to attack?
+> Rat attacked you and dealt 9 damage.
+Gnoll attacked you and dealt 29 damage.
+You attacked Rat and dealt 0 damage.
+You see the following enemies:
+
+  1) Rat             (30 HP)
+  2) Gnoll           (60 HP)
+
+You have 24 health.
+Which enemy would you like to attack?
+> Rat attacked you and dealt 9 damage.
+Gnoll attacked you and dealt 29 damage.
+You were killed by Gnoll.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Save before exiting? (Y/N) 

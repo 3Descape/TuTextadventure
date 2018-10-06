@@ -1,0 +1,335 @@
+Welcome to P0 Dungeon Quest character creator!
+Enter your name: You have 100 points to assign to your character.
+Start now to assign those Points to your characters attack, defense and speed.
+Attack: Defense: Speed: Before you store your character please confirm your stats!
+Name: Player1
+Attributes:
+
+  * Attack: 33
+  * Defense: 33
+  * Speed: 33
+
+Is this correct? (Y/N) Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Your inventory is empty.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Sorry, you have nothing to sell.
+Thanks for visiting!
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Welcome to the blacksmith
+You have 100 gold to spend. This is what I'm selling:
+
+REPEAT{\*}
+
+Type 'quit' or the name of the item you want to buy.
+> You have chosen Helmet.
+You have 97 gold left.
+Welcome to the blacksmith
+You have 97 gold to spend. This is what I'm selling:
+
+REPEAT{\*}
+
+Type 'quit' or the name of the item you want to buy.
+> I do not sell 'sadfhsdfhfdshfdshfdshfds'.
+Welcome to the blacksmith
+You have 97 gold to spend. This is what I'm selling:
+
+REPEAT{\*}
+
+Type 'quit' or the name of the item you want to buy.
+> Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Welcome to the druid
+You have 97 gold to spend. This is what I'm selling:
+
+REPEAT{\*}
+
+Type 'quit' or the name of the item you want to buy.
+> You have chosen Coffee.
+You have 92 gold left.
+Welcome to the druid
+You have 92 gold to spend. This is what I'm selling:
+
+REPEAT{\*}
+
+Type 'quit' or the name of the item you want to buy.
+> You have chosen Antidote.
+You have 77 gold left.
+Welcome to the druid
+You have 77 gold to spend. This is what I'm selling:
+
+REPEAT{\*}
+
+Type 'quit' or the name of the item you want to buy.
+> Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Welcome to your inventory Player1!
+These are your items:
+
+  * Helmet               (+2 defense when held)
+  * Coffee               (+2 speed when used)
+  * Antidote             (+6 defense when used)
+
+Type 'quit' or the name of the item you want to use/drop:
+> Do you want to 'use' or 'drop' Coffee? Else 'quit'.
+> You used Coffee.
+It increased your speed by 2.
+You now have 35 speed.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Welcome to your inventory Player1!
+These are your items:
+
+  * Helmet               (+2 defense when held)
+  * Antidote             (+6 defense when used)
+
+Type 'quit' or the name of the item you want to use/drop:
+> Item does not exist.
+Welcome to your inventory Player1!
+These are your items:
+
+  * Helmet               (+2 defense when held)
+  * Antidote             (+6 defense when used)
+
+Type 'quit' or the name of the item you want to use/drop:
+> Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> REGEX{You see .*}
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> Welcome to your inventory Player1!
+These are your items:
+
+  * Helmet               (+2 defense when held)
+  * Antidote             (+6 defense when used)
+
+Type 'quit' or the name of the item you want to use/drop:
+> Do you want to 'use' or 'drop' Antidote? Else 'quit'.
+> You dropped Antidote.
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> REGEX{You see .*}
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> You see the following enemies:
+
+  1) Rat             (30 HP)
+  2) Gnoll           (60 HP)
+
+You have 100 health.
+Which enemy would you like to attack?
+> Rat attacked you and dealt 2 damage.
+You attacked Rat and dealt 22 damage.
+Gnoll attacked you and dealt 13 damage.
+You see the following enemies:
+
+  1) Rat             (8 HP)
+  2) Gnoll           (60 HP)
+
+You have 85 health.
+Which enemy would you like to attack?
+> Rat attacked you and dealt 2 damage.
+You attacked Rat and dealt 22 damage.
+Rat died. It dropped REGEX{(1|2|3|4|5) gold\.}
+Gnoll attacked you and dealt 13 damage.
+You see the following enemies:
+
+  1) Gnoll           (60 HP)
+
+You have 70 health.
+Which enemy would you like to attack?
+> You attacked Gnoll and dealt 14 damage.
+Gnoll attacked you and dealt 13 damage.
+You see the following enemies:
+
+  1) Gnoll           (46 HP)
+
+You have 57 health.
+Which enemy would you like to attack?
+> You attacked Gnoll and dealt 14 damage.
+Gnoll attacked you and dealt 13 damage.
+You see the following enemies:
+
+  1) Gnoll           (32 HP)
+
+You have 44 health.
+Which enemy would you like to attack?
+> You attacked Gnoll and dealt 14 damage.
+Gnoll attacked you and dealt 13 damage.
+You see the following enemies:
+
+  1) Gnoll           (18 HP)
+
+You have 31 health.
+Which enemy would you like to attack?
+> You attacked Gnoll and dealt 14 damage.
+Gnoll attacked you and dealt 13 damage.
+You see the following enemies:
+
+  1) Gnoll           (4 HP)
+
+You have 18 health.
+Which enemy would you like to attack?
+> You attacked Gnoll and dealt 14 damage.
+Gnoll died. It dropped REGEX{(5|6|7|8|9|10) gold\.}
+All enemies defeated.
+You are alone in this room.
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> The chest is empty.
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> Monsters are blocking your way.
+What do you want to do?
+
+  1) Inventory
+  2) Look Around
+  3) Attack
+  4) Open chest
+  5) Move
+  0) Run away (leave dungeon)
+
+> You see the following enemies:
+
+  1) Wolf            (40 HP)
+  2) Rat             (30 HP)
+
+You have 18 health.
+Which enemy would you like to attack?
+> Wolf attacked you and dealt 10 damage.
+Rat attacked you and dealt 2 damage.
+You attacked Rat and dealt 22 damage.
+You see the following enemies:
+
+  1) Wolf            (40 HP)
+  2) Rat             (8 HP)
+
+You have 6 health.
+Which enemy would you like to attack?
+> Wolf attacked you and dealt 10 damage.
+You were killed by Wolf.
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Sorry, you have nothing to sell.
+Thanks for visiting!
+Welcome to Prog0 Village!
+What do you want to do?
+
+  1) Inventory
+  2) Merchant
+  3) Blacksmith
+  4) Druid
+  5) Dungeon
+  6) Save game
+  0) Quit game
+
+> Save before exiting? (Y/N) 
