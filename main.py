@@ -7,7 +7,7 @@ from Assets.Dungeon import Dungeon
 
 from Utils.Game import saveGame, loadGame
 
-import Globals
+from Globals import *
 
 import json
 
@@ -36,20 +36,21 @@ def main():
         data = loadGame(savefile)
         player = data['player']
 
-    welcome = 0
     game = True
     while game:
         selection = None
         input_required = True
         while input_required:
-            if(welcome == 0):
-                print("Welcome to Prog0 Village! \nWhat do you want to do?")
-                welcome += 1
-            else:
-                print("> Welcome to Prog0 Village! \nWhat do you want to do?")
+            print("Welcome to Prog0 Village! \nWhat do you want to do?")
 
-            option = int(input(
-                "\t1) Inventory\n\t2) Merchant\n\t3) Blacksmith\n\t4) Druid\n\t5) Dungeon\n\t6) Save game\n\t0) Quit game\n"))
+            print(
+                "\t1) Inventory\n\t2) Merchant\n\t3) Blacksmith\n\t4) Druid\n\t5) Dungeon\n\t6) Save game\n\t0) Quit game\n")
+            option = input("> ")
+
+            try:
+                option = int(option)
+            except:
+                pass
 
             if(option in range(0, 7)):
                 input_required = False
@@ -58,10 +59,14 @@ def main():
                 print("Invalid choice. Try again.")
 
         if(selection == 0):
-            should_save = input("> Save before exiting? (Y/N)").lower()
+            should_save = input("Save before exiting? (Y/N)").lower()
             if(should_save == "y"):
                 saveGame(savefile, player)
-            game = False
+                game = False
+            elif(should_save == "n"):
+                game = False
+            else:
+                print("Invalid choice. Try again.")
             return
 
         elif(selection == 1):

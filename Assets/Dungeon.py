@@ -18,9 +18,12 @@ class Dungeon:
         while input_required:
             print("What do you want to do?\n")
             print(
-                "\t1) Inventory\n\t2) Look Around\n\t3) Attack\n\t4) Open chest\n\t5) Move\n\t0) Run away(leave dungeon)\n")
+                "\t1) Inventory\n\t2) Look Around\n\t3) Attack\n\t4) Open chest\n\t5) Move\n\t0) Run away (leave dungeon)\n")
 
-            option = int(input())
+            try:
+                option = int(input("> "))
+            except:
+                pass
 
             if(option == 1):
                 player.showInventory()
@@ -36,7 +39,7 @@ class Dungeon:
                 enemy = None
                 while input_required:
                     enemy = int(
-                        input("Which enemy would yu like to attack?\n >"))
+                        input("Which enemy would you like to attack?\n >"))
 
                     if(0 < enemy <= len(room.enemies)):
                         input_required = False

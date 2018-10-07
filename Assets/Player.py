@@ -100,8 +100,9 @@ class Player:
                 print(
                     f"Welcome to your inventory {self.name}!\nThese are your items:")
                 for item in self.inventory:
-                    print(f"\t* {item.name.ljust(20, ' ')} (", "+" if item.effect_amount >= 0 else "-",
-                          f"{item.effect_amount} {item.effected_attribute} when {item.usecase})")
+                    prefix = "+" if item.effect_amount >= 0 else "-"
+                    print(
+                        f"\t* {item.name.ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
 
                 print("Type 'quit' or the name of the item you want to use/drop:")
                 user_input = input().lower()
@@ -114,26 +115,28 @@ class Player:
                         if(item.name.lower() == user_input):
                             inventory_item = item
                     if(inventory_item != None):
-                        print(
-                            f"Do you want to 'use' or 'drop' {item.name}? Else 'quit'.")
-                        action = input().lower()
+
+                        action = input(
+                            f"> Do you want to 'use' or 'drop' {inventory_item.name}? Else 'quit'.\n").lower()
 
                         if(action == "drop"):
                             self.inventory.remove(inventory_item)
-                            print(f"You dropped {inventory_item.name}.")
+                            print(f"> You dropped {inventory_item.name}.")
+                            require_input = False
                         elif(action == "use"):
                             if(inventory_item.usecase == "used"):
                                 setattr(self, inventory_item.effected_attribute, getattr(
                                     self, inventory_item.effected_attribute) + inventory_item.effect_amount)
-                                self.inventory.remove(item)
-                                print(f"You used {inventory_item.name}.")
+                                self.inventory.remove(inventory_item)
+                                print(f"> You used {inventory_item.name}.")
                                 print(
                                     f"It increased your {inventory_item.effected_attribute} by {inventory_item.effect_amount}.")
                                 print(
-                                    f"You now have {getattr(self, inventory_item.effected_attribute)} {inventory_item.effected_attribute}")
-
+                                    f"You now have {getattr(self, inventory_item.effected_attribute)} {inventory_item.effected_attribute}.")
+                                require_input = False
                             else:
-                                print("You cannot use this item.")
+                                print("> You cannot use this item.")
+                                require_input = False
                         elif(action == "quit"):
                             require_input = False
                         else:
@@ -142,7 +145,7 @@ class Player:
                         print("Item does not exist.")
 
             else:
-                print("> Your inventory is empty.")
+                print("Your inventory is empty.")
                 require_input = False
 
     def tojson(self):
