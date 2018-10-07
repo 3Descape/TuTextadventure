@@ -5,31 +5,36 @@ from Assets.Store import Store
 from Assets.InventoryItem import InventoryItem
 from Assets.Dungeon import Dungeon
 
-import json
+from Utils.Game import saveGame, loadGame
 
-EFFECT_ATTACK = "attack"
-EFFECT_DEFENSE = "defense"
-EFFECT_SPEED = "speed"
+import Globals
+
+import json
 
 
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--new-game',
-                        help='Starts a new game', action='store_true', required=False)
-    parser.add_argument('--savefile',
-                        help='File to load game from', required=False)
 
+    parser.add_argument('--savefile', default="game.json",
+                        help="The save file. default: 'game.json'")
+    parser.add_argument("--new-game", dest="new_game", default=False, action='store_true',
+                        help="Create a new save file.")
+    parser.add_argument("-b", dest="bonus_tasks", default=False,
+                        action="store_true", help='enable bonus tasks')
+    parser.add_argument("--print-bonus", dest="print_bonus", default=False,
+                        action="store_true", help='print bonus task list and exit')
+    args = parser.parse_args()
     args = parser.parse_args()
 
     player = None
-    savefile = "game.json"
+    savefile = args.savefile
 
     if(args.new_game):
         player = Player.character_setup()
-    elif(args.savefile):
-        savefile = args.savefile
-        print("set file to", savefile)
+    else:
+        data = loadGame(savefile)
+        player = data['player']
 
     welcome = 0
     game = True
@@ -53,13 +58,11 @@ def main():
                 print("Invalid choice. Try again.")
 
         if(selection == 0):
-            should_exit = input("> Save before exiting? (Y/N)").lower()
-            if(should_exit == "y"):
-                game = False
-                return
-            elif(should_exit == "n"):
-                game = False
-                return
+            should_save = input("> Save before exiting? (Y/N)").lower()
+            if(should_save == "y"):
+                saveGame(savefile, player)
+            game = False
+            return
 
         elif(selection == 1):
             player.showInventory()
@@ -86,9 +89,7 @@ def main():
             dungeon = Dungeon()
             dungeon.enter(player)
         elif(selection == 6):
-            file = open(savefile, "w")
-            json.dump({"player": player.toDic()}, file)
-            file.close()
+            saveGame(savefile, player)
 
 
 if __name__ == "__main__":

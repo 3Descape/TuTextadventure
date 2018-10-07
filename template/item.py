@@ -1,5 +1,6 @@
 from json_serialization import json_class
 
+
 @json_class
 class Item:
     def __init__(self, **item):

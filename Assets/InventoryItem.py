@@ -1,3 +1,7 @@
+from External.json_serialization import json_class
+
+
+@json_class
 class InventoryItem:
     def __init__(self, name, price, effected_attribute, effect_amount, usecase):
         self.name = name

@@ -1,3 +1,7 @@
+from External.json_serialization import json_class, CustomDecoder, CustomEncoder
+
+
+@json_class
 class Player:
     def __init__(self, name, attack, defense, speed, gold, inventory, health):
         self.name = name
@@ -141,13 +145,8 @@ class Player:
                 print("> Your inventory is empty.")
                 require_input = False
 
-    def toDic(self):
-        return {
-            "name": self.name,
-            "attack": self.attack,
-            "defense": self.defense,
-            "speed": self.speed,
-            "gold": self.gold,
-            "inventory": self.inventory,
-            "health": self.health
-        }
+    def tojson(self):
+        encoder = CustomEncoder()
+        json = encoder.default(self)
+        json["inventory"] = [encoder.default(item) for item in self.inventory]
+        return json
