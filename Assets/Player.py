@@ -1,9 +1,11 @@
 from External.json_serialization import json_class, CustomDecoder, CustomEncoder
 
+from math import floor
+
 
 @json_class
 class Player:
-    def __init__(self, name, attack, defense, speed, gold, inventory, health):
+    def __init__(self, name, attack, defense, speed, gold, inventory, health, alive=True):
         self.name = name
         self.attack = attack
         self.defense = defense
@@ -11,6 +13,7 @@ class Player:
         self.gold = gold
         self.inventory = inventory
         self.health = health
+        self.alive = True
 
     @staticmethod
     def attribute_input_handler(text, used):
@@ -147,6 +150,22 @@ class Player:
             else:
                 print("Your inventory is empty.")
                 require_input = False
+
+    def killed(self):
+        self.inventory = []
+        self.health = 100
+        self.alive = False
+
+    def attackEnemy(self, enemy):
+        damage = floor((self.attack**2)/(self.attack + enemy.defense))
+        enemy.health -= damage
+        print(f"You attacked {enemy.name} and dealt {damage} damage.")
+        if(enemy.health < 1):
+            reward = enemy.getReward()
+            print(f"You killed {enemy.name} and earned {reward}")
+            self.gold += reward
+            enemy.killed()
+        return enemy
 
     def tojson(self):
         encoder = CustomEncoder()

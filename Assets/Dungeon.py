@@ -14,14 +14,15 @@ class Dungeon:
     def enter(self, player):
         print("You see a door in front of you..")
 
-        input_required = True
-        while input_required:
+        dungeon = True
+        while dungeon:
             print("What do you want to do?\n")
             print(
                 "\t1) Inventory\n\t2) Look Around\n\t3) Attack\n\t4) Open chest\n\t5) Move\n\t0) Run away (leave dungeon)\n")
 
+            option = input("> ")
             try:
-                option = int(input("> "))
+                option = int(option)
             except:
                 pass
 
@@ -31,20 +32,33 @@ class Dungeon:
                 # //TODO: Add meaningful description
                 print("Some description in here")
             elif(option == 3):
-                print("You see the following enemies:")
-                room = self.rooms[self.current_room]
-                room.showEnemies()
-                print(f"\nYou have {player.health} health.")
-                input_required = True
-                enemy = None
-                while input_required:
-                    enemy = int(
+                fight = True
+                while fight:
+                    print("You see the following enemies:")
+                    room = self.rooms[self.current_room]
+                    room.showEnemies()
+                    print(f"\nYou have {player.health} health.")
+                    selected_enemy = int(
                         input("Which enemy would you like to attack?\n >"))
 
-                    if(0 < enemy <= len(room.enemies)):
-                        input_required = False
-                        print(room.enemies[enemy-1])
-                        input("wa")
+                    if(0 < selected_enemy <= len(room.enemies)):
+                        fighters = [player] + room.enemies
+                        fighters = reversed(sorted(fighters,
+                                                   key=lambda fighter: fighter.speed))
+
+                        selected_enemy = room.enemies[selected_enemy-1]
+
+                        print(selected_enemy.name)
+                        for fighter in fighters:
+                            if(isinstance(fighter, Enemy)):
+                                player = fighter.attackPlayer(player)
+                                if(not player.alive):
+                                    fight = False
+                                    dungeon = False
+                                    break
+                            else:
+                                fighter = player.attackEnemy(selected_enemy)
+                                room.updateEnemy(fighter)
                     else:
                         print(
                             f"Please input a positive integer between 1 and {len(room.enemies)}")
@@ -53,7 +67,9 @@ class Dungeon:
             elif(option == 5):
                 pass
             elif(option == 0):
-                input_required = False
+                dungeon = False
+            else:
+                print("Invalid choice. Please try again.")
         return player
 
     def generateRooms(self, count):
