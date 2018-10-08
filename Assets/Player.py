@@ -5,7 +5,7 @@ from math import floor
 
 @json_class
 class Player:
-    def __init__(self, name, attack, defense, speed, gold, inventory, health, alive=True):
+    def __init__(self, name, attack, defense, speed, gold, inventory, health):
         self.name = name
         self.attack = attack
         self.defense = defense
@@ -13,7 +13,6 @@ class Player:
         self.gold = gold
         self.inventory = inventory
         self.health = health
-        self.alive = True
 
     @staticmethod
     def attribute_input_handler(text, used):
@@ -153,18 +152,22 @@ class Player:
 
     def killed(self):
         self.inventory = []
+
+    def respawn(self):
         self.health = 100
-        self.alive = False
+
+    def alive(self):
+        return self.health > 0
 
     def attackEnemy(self, enemy):
         damage = floor((self.attack**2)/(self.attack + enemy.defense))
         enemy.health -= damage
         print(f"You attacked {enemy.name} and dealt {damage} damage.")
-        if(enemy.health < 1):
+        if(not enemy.alive()):
             reward = enemy.getReward()
-            print(f"You killed {enemy.name} and earned {reward}")
+            print(f"You killed {enemy.name} and earned {reward} gold.")
             self.gold += reward
-            enemy.killed()
+            print(f"{enemy.name} died. It dropped {reward} gold.")
         return enemy
 
     def tojson(self):

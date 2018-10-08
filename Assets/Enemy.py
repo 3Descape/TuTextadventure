@@ -10,7 +10,6 @@ class Enemy:
         self.defense = defense
         self.speed = speed
         self.reward = reward
-        self.alive = True
 
     def attackPlayer(self, player):
         damage = floor((self.attack**2)/(self.attack + player.defense))
@@ -24,5 +23,5 @@ class Enemy:
     def getReward(self):
         return randint(self.reward[0], self.reward[1])
 
-    def killed(self):
-        self.alive = False
+    def alive(self):
+        return self.health > 0

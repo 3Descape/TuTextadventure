@@ -26,6 +26,7 @@ class Dungeon:
             except:
                 pass
 
+            room = self.rooms[self.current_room]
             if(option == 1):
                 player.showInventory()
             elif(option == 2):
@@ -35,7 +36,6 @@ class Dungeon:
                 fight = True
                 while fight:
                     print("You see the following enemies:")
-                    room = self.rooms[self.current_room]
                     room.showEnemies()
                     print(f"\nYou have {player.health} health.")
                     selected_enemy = int(
@@ -52,19 +52,34 @@ class Dungeon:
                         for fighter in fighters:
                             if(isinstance(fighter, Enemy)):
                                 player = fighter.attackPlayer(player)
-                                if(not player.alive):
+                                if(not player.alive()):
+                                    player.respawn()
                                     fight = False
                                     dungeon = False
                                     break
                             else:
                                 fighter = player.attackEnemy(selected_enemy)
                                 room.updateEnemy(fighter)
+
+                        if(not len(room.enemies)):
+                            print(
+                                "All enemies defeated.\nYou are alone in this room.")
+                            fight = False
                     else:
                         print(
                             f"Please input a positive integer between 1 and {len(room.enemies)}")
             elif(option == 4):
-                pass
+                if(not room.hasEnemies()):
+                    player = room.chest.collectItems(player)
+                else:
+                    print("Monsters are blocking your way.")
             elif(option == 5):
+                if(not room.hasEnemies()):
+                    if(self.current_room+1 < len(self.rooms)):
+                        self.current_room += 1
+                else:
+                    print("Monsters are blocking your way.")
+
                 pass
             elif(option == 0):
                 dungeon = False

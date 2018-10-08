@@ -10,8 +10,11 @@ class Room:
     def updateEnemy(self, enemy):
         for index, e in enumerate(self.enemies):
             if e == enemy:
-                if(enemy.alive):
+                if(enemy.alive()):
                     self.enemies[index] = enemy
                 else:
                     del self.enemies[index]
                 break
+
+    def hasEnemies(self):
+        return len(self.enemies)
