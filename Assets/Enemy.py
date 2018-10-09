@@ -16,7 +16,7 @@ class Enemy:
         player.health -= damage
         print(f"{self.name} attacked you and dealt {damage} damage.")
         if(player.health < 1):
-            print(f"You were killed by {self.name}")
+            print(f"You were killed by {self.name}.")
             player.killed()
         return player
 
@@ -25,3 +25,6 @@ class Enemy:
 
     def alive(self):
         return self.health > 0
+
+    def copy(self):
+        return Enemy(self.name, self.health, self.attack, self.defense, self.speed, self.reward)

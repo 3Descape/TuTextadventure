@@ -3,9 +3,9 @@ class Chest:
         self.items = item
 
     def collectItems(self, player):
-        if(len(self.itmes)):
+        if(len(self.items)):
             for item in self.items:
-                print(f"You collected {item} from the chest.")
+                print(f"You collected {item.name} from the chest.")
             return player.inventory.append(self.items)
         else:
             print("The chest is empty.")

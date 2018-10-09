@@ -31,15 +31,16 @@ class Dungeon:
                 player.showInventory()
             elif(option == 2):
                 # //TODO: Add meaningful description
-                print("Some description in here")
+                print("You see ..Some description in here")
             elif(option == 3):
+
                 fight = True
                 while fight:
                     print("You see the following enemies:")
                     room.showEnemies()
                     print(f"\nYou have {player.health} health.")
-                    selected_enemy = int(
-                        input("Which enemy would you like to attack?\n >"))
+                    print("Which enemy would you like to attack?")
+                    selected_enemy = int(input("> "))
 
                     if(0 < selected_enemy <= len(room.enemies)):
                         fighters = [player] + room.enemies
@@ -48,18 +49,20 @@ class Dungeon:
 
                         selected_enemy = room.enemies[selected_enemy-1]
 
-                        print(selected_enemy.name)
+                        i = 0
                         for fighter in fighters:
                             if(isinstance(fighter, Enemy)):
-                                player = fighter.attackPlayer(player)
-                                if(not player.alive()):
-                                    player.respawn()
-                                    fight = False
-                                    dungeon = False
-                                    break
+                                if(fighter.alive()):
+                                    player = fighter.attackPlayer(player)
+                                    if(not player.alive()):
+                                        player.respawn()
+                                        fight = False
+                                        dungeon = False
+                                        break
                             else:
-                                fighter = player.attackEnemy(selected_enemy)
-                                room.updateEnemy(fighter)
+                                room.updateEnemy(
+                                    player.attackEnemy(selected_enemy))
+                            i += 1
 
                         if(not len(room.enemies)):
                             print(
@@ -77,6 +80,9 @@ class Dungeon:
                 if(not room.hasEnemies()):
                     if(self.current_room+1 < len(self.rooms)):
                         self.current_room += 1
+                        room = self.rooms[self.current_room]
+                    if(room.hasEnemies()):
+                        print("Monsters are blocking your way.")
                 else:
                     print("Monsters are blocking your way.")
 
@@ -99,7 +105,7 @@ class Dungeon:
         ])
         for i in range(count):
             if i % 2 == 0:
-                rooms.append(Room([rat, gnoll], chest_empty))
+                rooms.append(Room([rat.copy(), gnoll.copy()], chest_empty))
             else:
-                rooms.append(Room([wolf, rat], chest))
+                rooms.append(Room([wolf.copy(), rat.copy()], chest))
         return rooms

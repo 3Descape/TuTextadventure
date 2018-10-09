@@ -1,3 +1,6 @@
+from Globals import DEBUG
+
+
 class Store:
     def __init__(self, name, items):
         self.name = name
@@ -6,6 +9,10 @@ class Store:
     def enter(self, player):
         input_required = True
         while input_required:
+
+            if(DEBUG):
+                print(
+                    f"\n\nAttack: {player.attack}\nDefense: {player.defense}\nSpeed: {player.speed}\n\n\n")
             print(
                 f"Welcome to the {self.name}\nYou have {player.gold} gold to spend. This is what I'm selling:")
             self.list_items()
@@ -21,7 +28,7 @@ class Store:
                     if(item.name.lower() == user_input):
                         found = item
                 if(found != None):
-                    if(player.gold >= item.price):
+                    if(player.gold >= found.price):
                         print(f"You have chosen {found.name}.")
                         player.buyItem(found)
                         print(f"You have {player.gold} gold left.\n")

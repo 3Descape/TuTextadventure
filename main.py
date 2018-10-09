@@ -65,8 +65,6 @@ def main():
                 game = False
             elif(should_save == "n"):
                 game = False
-            else:
-                print("Invalid choice. Try again.")
             return
 
         elif(selection == 1):
@@ -77,7 +75,7 @@ def main():
         elif(selection == 3):
             blacksmith = Store("blacksmith", [
                 InventoryItem('Helmet', 3, EFFECT_DEFENSE, 2, "held"),
-                InventoryItem('Check plate', 5, EFFECT_DEFENSE, 4, "held"),
+                InventoryItem('Chest plate', 5, EFFECT_DEFENSE, 4, "held"),
                 InventoryItem('Sword', 10, EFFECT_ATTACK, 5, "held")
             ])
             player = blacksmith.enter(player)

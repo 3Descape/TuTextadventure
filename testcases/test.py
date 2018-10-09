@@ -9,7 +9,6 @@ REGEX_TOKEN = "REGEX{"
 REPEAT_TOKEN = "REPEAT{"
 TOKEN_END = "}"
 
-
 def run_test(test_name):
     in_data = open(test_name + "_in", "rb").read()
     expected = open(test_name + "_out", "r").read().split("\n")
@@ -17,12 +16,9 @@ def run_test(test_name):
 
     cmd = ['python3', '../main.py']
     if os.path.isfile(params_filename):
+        cmd += [a.strip() for a in open(params_filename, "r").read().split(" ")]
 
-        cmd += [a.strip()
-                for a in open(params_filename, "r").read().split(" ")]
-
-    stdoutdata, stderrdata = Popen(
-        cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE).communicate(input=in_data)
+    stdoutdata, stderrdata = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE).communicate(input=in_data)
 
     try:
         stdoutdata = stdoutdata.decode('utf-8')
@@ -69,18 +65,17 @@ def run_test(test_name):
 
         return False, "expected '{}'\nbut got  '{}'\n".format(e, line)
 
+
     if stderrdata:
         return False, "process printed to stderr: " + stderrdata.decode('utf-8')
 
     return True, "pass"
-
 
 def try_test(test):
     try:
         return run_test(test)
     except Exception as e:
         return False, "Test failed: {}".format(e)
-
 
 def main():
     for test_in in sorted(glob("*_in")):
@@ -92,7 +87,6 @@ def main():
         else:
             print("failed!")
             print(msg)
-
 
 if __name__ == '__main__':
     main()

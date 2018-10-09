@@ -1,5 +1,5 @@
 from External.json_serialization import json_class, CustomDecoder, CustomEncoder
-
+from Globals import DEBUG
 from math import floor
 
 
@@ -35,6 +35,9 @@ class Player:
 
     def buyItem(self, item):
         self.inventory.append(item)
+        if(item.usecase == "held"):
+            setattr(self, item.effected_attribute, getattr(
+                self, item.effected_attribute) + item.effect_amount)
         self.gold -= item.price
 
     @staticmethod
@@ -49,11 +52,11 @@ class Player:
 
             input_required = True
 
-            while input_required:
-                print(
-                    "Welcome to P0 Dungeon Quest character creator!")
+            print(
+                "Welcome to P0 Dungeon Quest character creator!")
 
-                name = input("Enter your name: ")
+            name = input("Enter your name: ")
+            while input_required:
                 print("You have 100 points to assign to your character.")
                 print(
                     "Start now to assign those Points to your characters attack, defense and speed.")
@@ -91,13 +94,16 @@ class Player:
 
                 else:
                     print(
-                        "Sorry, it seems like you spend more than 100 ability points on your charater... \nTry that again!")
+                        "Sorry, it seems like you spent more than 100 ability points on your character... Try that again!")
 
         return Player(name, attack, defense, speed, 100, [], 100)
 
     def showInventory(self):
         require_input = True
         while require_input:
+            if(DEBUG):
+                print(
+                    f"\n\nAttack: {self.attack}\nDefense: {self.defense}\nSpeed: {self.speed}\n\n\n")
             if(len(self.inventory)):
                 print(
                     f"Welcome to your inventory {self.name}!\nThese are your items:")
@@ -107,7 +113,7 @@ class Player:
                         f"\t* {item.name.ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
 
                 print("Type 'quit' or the name of the item you want to use/drop:")
-                user_input = input().lower()
+                user_input = input("> ").lower()
 
                 if(user_input == "quit"):
                     require_input = False
@@ -118,26 +124,31 @@ class Player:
                             inventory_item = item
                     if(inventory_item != None):
 
-                        action = input(
-                            f"> Do you want to 'use' or 'drop' {inventory_item.name}? Else 'quit'.\n").lower()
+                        print(
+                            f"Do you want to 'use' or 'drop' {inventory_item.name}? Else 'quit'.\n")
+                        action = input("> ").lower()
 
                         if(action == "drop"):
+                            if(inventory_item.usecase == "held"):
+                                setattr(self, inventory_item.effected_attribute, getattr(
+                                    self, inventory_item.effected_attribute) - inventory_item.effect_amount)
+
                             self.inventory.remove(inventory_item)
-                            print(f"> You dropped {inventory_item.name}.")
+                            print(f"You dropped {inventory_item.name}.")
                             require_input = False
                         elif(action == "use"):
                             if(inventory_item.usecase == "used"):
                                 setattr(self, inventory_item.effected_attribute, getattr(
                                     self, inventory_item.effected_attribute) + inventory_item.effect_amount)
                                 self.inventory.remove(inventory_item)
-                                print(f"> You used {inventory_item.name}.")
+                                print(f"You used {inventory_item.name}.")
                                 print(
                                     f"It increased your {inventory_item.effected_attribute} by {inventory_item.effect_amount}.")
                                 print(
                                     f"You now have {getattr(self, inventory_item.effected_attribute)} {inventory_item.effected_attribute}.")
                                 require_input = False
                             else:
-                                print("> You cannot use this item.")
+                                print("You cannot use this item.")
                                 require_input = False
                         elif(action == "quit"):
                             require_input = False
@@ -165,7 +176,7 @@ class Player:
         print(f"You attacked {enemy.name} and dealt {damage} damage.")
         if(not enemy.alive()):
             reward = enemy.getReward()
-            print(f"You killed {enemy.name} and earned {reward} gold.")
+            #print(f"You killed {enemy.name} and earned {reward} gold.")
             self.gold += reward
             print(f"{enemy.name} died. It dropped {reward} gold.")
         return enemy

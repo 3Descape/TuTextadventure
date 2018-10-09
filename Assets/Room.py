@@ -10,6 +10,7 @@ class Room:
     def updateEnemy(self, enemy):
         for index, e in enumerate(self.enemies):
             if e == enemy:
+                #print("Healt:", enemy.health)
                 if(enemy.alive()):
                     self.enemies[index] = enemy
                 else:
@@ -17,4 +18,4 @@ class Room:
                 break
 
     def hasEnemies(self):
-        return len(self.enemies)
+        return len(self.enemies) > 0
