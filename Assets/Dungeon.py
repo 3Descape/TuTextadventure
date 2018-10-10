@@ -8,8 +8,8 @@ from Globals import *
 
 class Dungeon:
     def __init__(self):
-        self.rooms = self.generateRooms(5)
         self.current_room = 0
+        self.rooms = self.generateRooms(4)
 
     def enter(self, player):
         print("You see a door in front of you..")
@@ -54,6 +54,7 @@ class Dungeon:
                             if(isinstance(fighter, Enemy)):
                                 if(fighter.alive()):
                                     player = fighter.attackPlayer(player)
+                                    
                                     if(not player.alive()):
                                         player.respawn()
                                         fight = False
@@ -78,6 +79,8 @@ class Dungeon:
                     print("Monsters are blocking your way.")
             elif(option == 5):
                 if(not room.hasEnemies()):
+                    if(self.current_room == (len(self.rooms)-1)):
+                        self.generateRooms(4)
                     if(self.current_room+1 < len(self.rooms)):
                         self.current_room += 1
                         room = self.rooms[self.current_room]
@@ -103,7 +106,7 @@ class Dungeon:
         chest = Chest([
             InventoryItem("Potion", 0, EFFECT_HEALTH, 10, "held")
         ])
-        for i in range(count):
+        for i in range(self.current_room, self.current_room + count):
             if i % 2 == 0:
                 rooms.append(Room([rat.copy(), gnoll.copy()], chest_empty))
             else:

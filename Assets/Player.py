@@ -162,6 +162,9 @@ class Player:
                 require_input = False
 
     def killed(self):
+        for item in self.inventory:
+            if(item.usecase == "held"):
+                setattr(self, item.effected_attribute, getattr(self, item.effected_attribute) - item.effect_amount)
         self.inventory = []
 
     def respawn(self):
