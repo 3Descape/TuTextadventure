@@ -38,11 +38,8 @@ def menu_quit_game(game):
     should_save = input().lower()
     if(should_save == "y"):
         game.save()
-        game.stop()
-        return
 
-    elif(should_save == "n"):
-        game.stop()
+    game.stop()
 
     return game
 
