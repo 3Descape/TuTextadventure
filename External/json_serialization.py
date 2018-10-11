@@ -21,7 +21,7 @@ class CustomDecoder(json.JSONDecoder):
         for klass in jsonClasses:
             if type == klass.__name__:
                 del obj["__class__"]
-                return klass(**obj)
+                return klass(obj)
         return obj
 
 

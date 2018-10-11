@@ -10,7 +10,7 @@ class Reseller:
                     f"Welcome to the {self.name}!\nYou have {player.gold} gold. This is what I would pay for your items:")
                 for item in player.inventory:
                     print(
-                        f"\t* {item.name.ljust(20, ' ')} for{str(int(item.price/2)).rjust(5, ' ')} gold")
+                        f"\t* {item.name.capitalize().ljust(20, ' ')} for{str(int(item.price/2)).rjust(5, ' ')} gold")
 
                 print("Type 'quit' or the name of the item you want to sell.")
 
@@ -25,7 +25,7 @@ class Reseller:
                             item_to_sell = item
 
                     if(item_to_sell != None):
-                        print(f"You have chosen {item_to_sell.name}.")
+                        print(f"You have chosen {item_to_sell.name.capitalize()}.")
                         player.gold += int(item_to_sell.price/2)
                         player.inventory.remove(item_to_sell)
                         print(f"You now have {player.gold} gold left.")

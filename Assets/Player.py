@@ -3,17 +3,17 @@ from math import floor
 
 from Globals import *
 
-
 @json_class
 class Player:
-    def __init__(self, name, attack, defense, speed, gold, inventory, health):
-        self.name = name
-        self.attack = attack
-        self.defense = defense
-        self.speed = speed
-        self.gold = gold
-        self.inventory = inventory
-        self.health = health
+    def __init__(self, kwargs):
+        self.name = ""
+        self.attack = 0
+        self.defense = 0
+        self.speed = 0
+        self.gold = 100
+        self.inventory = []
+        self.health = 100
+        self.__dict__.update(**kwargs)
 
     @staticmethod
     def attribute_input_handler(text, used):
@@ -101,7 +101,7 @@ class Player:
                     print(
                         "Sorry, it seems like you spent more than 100 ability points on your character... Try that again!")
 
-        return Player(name, attack, defense, speed, 100, [], 100)
+        return Player({"name": name, "attack": attack, "defense": defense, "speed": speed, "gold": 100, "inventory": [], "health": 100})
 
     def showInventory(self):
         while True:
@@ -111,7 +111,7 @@ class Player:
                 for item in self.inventory:
                     prefix = "+" if item.effect_amount >= 0 else "-"
                     print(
-                        f"\t* {item.name.title().ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
+                        f"\t* {item.name.capitalize().ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
 
                 print("Type 'quit' or the name of the item you want to use/drop:")
 
@@ -123,31 +123,30 @@ class Player:
                 else:
                     inventory_item = None
                     for item in self.inventory:
-                        if(item.name.lower() == user_input):
+                        if(item.name == user_input):
                             inventory_item = item
 
                     if(inventory_item != None):
                         print(
-                            f"Do you want to 'use' or 'drop' {inventory_item.name}? Else 'quit'.\n")
+                            f"Do you want to 'use' or 'drop' {inventory_item.name.capitalize()}? Else 'quit'.\n")
 
                         action = input("> ").lower()
 
                         if(action == "drop"):
                             if(inventory_item.usecase == USECASE_HELD):
                                 self.applyEffect(
-                                    inventory_item.effected_attribute, inventory_item.effect_amount)
+                                    inventory_item.effected_attribute, -inventory_item.effect_amount)
 
                             self.inventory.remove(inventory_item)
-                            print(f"You dropped {inventory_item.name}.")
+                            print(f"You dropped {inventory_item.name.capitalize()}.")
                             break
 
-                        elif(action == USECASE_USE):
-                            if(inventory_item.usecase == "used"):
-                                setattr(self, inventory_item.effected_attribute, getattr(
-                                    self, inventory_item.effected_attribute) + inventory_item.effect_amount)
+                        elif(action == "use"):
+                            if(inventory_item.usecase == USECASE_USE):
+                                self.applyEffect(inventory_item.effected_attribute, inventory_item.effect_amount)
                                 self.inventory.remove(inventory_item)
 
-                                print(f"You used {inventory_item.name}.")
+                                print(f"You used {inventory_item.name.capitalize()}.")
                                 print(
                                     f"It increased your {inventory_item.effected_attribute} by {inventory_item.effect_amount}.")
                                 print(

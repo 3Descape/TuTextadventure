@@ -91,7 +91,7 @@ class Store:
 
                 if(found != None):
                     if(player.gold >= found.price):
-                        print(f"You have chosen {found.name}.")
+                        print(f"You have chosen {found.name.capitalize()}.")
                         player.buyItem(found)
                         print(f"You have {player.gold} gold left.\n")
 

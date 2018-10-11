@@ -116,7 +116,7 @@ class Dungeon:
         wolf = Enemy(name="Wolf", health=40, attack=25,
                      defense=30, speed=60, reward=[10, 15])
 
-        item = Item({"name": "potion", **(Store.stores["druid"]["potion"])})
+        item = Item({"name": "potion", **(Store.stores["druid"]["items"]["potion"])})
         chest_empty = Chest([])
         chest = Chest([item])
 
