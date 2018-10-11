@@ -15,9 +15,11 @@ class Enemy:
         damage = floor((self.attack**2)/(self.attack + player.defense))
         player.health -= damage
         print(f"{self.name} attacked you and dealt {damage} damage.")
+
         if(player.health < 1):
+            player.kill()
             print(f"You were killed by {self.name}.")
-            player.killed()
+
         return player
 
     def getReward(self):

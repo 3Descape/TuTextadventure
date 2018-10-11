@@ -1,6 +1,7 @@
 from External.json_serialization import json_class, CustomDecoder, CustomEncoder
-from Globals import DEBUG
 from math import floor
+
+from Globals import *
 
 
 @json_class
@@ -16,29 +17,33 @@ class Player:
 
     @staticmethod
     def attribute_input_handler(text, used):
-        valid = False
         value = None
-        while not valid:
+        while True:
             value = input(text)
 
             try:
                 value = int(value)
                 if(value > 0):
-                    valid = True
-#                    if(100-used-value != 0):
-#                        print(f"You only have {100-used-value} points left.")
+                    break
+
                 else:
                     print("Please input a positive integer.")
+
             except ValueError:
                 print("Please input a positive integer.")
+
         return value
 
     def buyItem(self, item):
         self.inventory.append(item)
-        if(item.usecase == "held"):
-            setattr(self, item.effected_attribute, getattr(
-                self, item.effected_attribute) + item.effect_amount)
+        if(item.usecase == USECASE_HELD):
+            self.applyEffect(item.effected_attribute, item.effect_amount)
+
         self.gold -= item.price
+
+    def applyEffect(self, effected_attribute, effect_amount):
+        setattr(self, effected_attribute, getattr(
+            self, effected_attribute) + effect_amount)
 
     @staticmethod
     def character_setup():
@@ -46,21 +51,21 @@ class Player:
         attack = ""
         defense = ""
         speed = ""
-
         require_confirmation = True
+
         while require_confirmation:
-
-            input_required = True
-
             print(
                 "Welcome to P0 Dungeon Quest character creator!")
-
             name = input("Enter your name: ")
+
+            input_required = True
             while input_required:
                 print("You have 100 points to assign to your character.")
                 print(
                     "Start now to assign those Points to your characters attack, defense and speed.")
+
                 used = 0
+
                 attack = Player.attribute_input_handler("Attack: ", used)
                 used += attack
 
@@ -99,59 +104,62 @@ class Player:
         return Player(name, attack, defense, speed, 100, [], 100)
 
     def showInventory(self):
-        require_input = True
-        while require_input:
-            if(DEBUG):
-                print(
-                    f"\n\nAttack: {self.attack}\nDefense: {self.defense}\nSpeed: {self.speed}\n\n\n")
+        while True:
             if(len(self.inventory)):
                 print(
                     f"Welcome to your inventory {self.name}!\nThese are your items:")
                 for item in self.inventory:
                     prefix = "+" if item.effect_amount >= 0 else "-"
                     print(
-                        f"\t* {item.name.ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
+                        f"\t* {item.name.title().ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
 
                 print("Type 'quit' or the name of the item you want to use/drop:")
+
                 user_input = input("> ").lower()
 
                 if(user_input == "quit"):
-                    require_input = False
+                    break
+
                 else:
                     inventory_item = None
                     for item in self.inventory:
                         if(item.name.lower() == user_input):
                             inventory_item = item
-                    if(inventory_item != None):
 
+                    if(inventory_item != None):
                         print(
                             f"Do you want to 'use' or 'drop' {inventory_item.name}? Else 'quit'.\n")
+
                         action = input("> ").lower()
 
                         if(action == "drop"):
-                            if(inventory_item.usecase == "held"):
-                                setattr(self, inventory_item.effected_attribute, getattr(
-                                    self, inventory_item.effected_attribute) - inventory_item.effect_amount)
+                            if(inventory_item.usecase == USECASE_HELD):
+                                self.applyEffect(
+                                    inventory_item.effected_attribute, inventory_item.effect_amount)
 
                             self.inventory.remove(inventory_item)
                             print(f"You dropped {inventory_item.name}.")
-                            require_input = False
-                        elif(action == "use"):
+                            break
+
+                        elif(action == USECASE_USE):
                             if(inventory_item.usecase == "used"):
                                 setattr(self, inventory_item.effected_attribute, getattr(
                                     self, inventory_item.effected_attribute) + inventory_item.effect_amount)
                                 self.inventory.remove(inventory_item)
+
                                 print(f"You used {inventory_item.name}.")
                                 print(
                                     f"It increased your {inventory_item.effected_attribute} by {inventory_item.effect_amount}.")
                                 print(
                                     f"You now have {getattr(self, inventory_item.effected_attribute)} {inventory_item.effected_attribute}.")
-                                require_input = False
+                                break
+
                             else:
                                 print("You cannot use this item.")
-                                require_input = False
+                                break
+
                         elif(action == "quit"):
-                            require_input = False
+                            break
                         else:
                             print("Nothing done.")
                     else:
@@ -159,12 +167,12 @@ class Player:
 
             else:
                 print("Your inventory is empty.")
-                require_input = False
+                break
 
-    def killed(self):
+    def kill(self):
         for item in self.inventory:
             if(item.usecase == "held"):
-                setattr(self, item.effected_attribute, getattr(self, item.effected_attribute) - item.effect_amount)
+                self.applyEffect(item.effected_attribute, -item.effect_amount)
         self.inventory = []
 
     def respawn(self):
@@ -179,9 +187,9 @@ class Player:
         print(f"You attacked {enemy.name} and dealt {damage} damage.")
         if(not enemy.alive()):
             reward = enemy.getReward()
-            #print(f"You killed {enemy.name} and earned {reward} gold.")
             self.gold += reward
             print(f"{enemy.name} died. It dropped {reward} gold.")
+
         return enemy
 
     def tojson(self):
