@@ -2,9 +2,9 @@ class Reseller:
     def __init__(self, name):
         self.name = name
 
-    def enter(self, player):
-        input_required = True
-        while input_required:
+    def enter(self, game):
+        player = game.player
+        while True:
             if(len(player.inventory)):
                 print(
                     f"Welcome to the {self.name}!\nYou have {player.gold} gold. This is what I would pay for your items:")
@@ -17,7 +17,7 @@ class Reseller:
                 input_item = input("> ").lower()
 
                 if(input_item == "quit"):
-                    input_required = False
+                    break
                 else:
                     item_to_sell = None
                     for item in player.inventory:
@@ -25,7 +25,8 @@ class Reseller:
                             item_to_sell = item
 
                     if(item_to_sell != None):
-                        print(f"You have chosen {item_to_sell.name.capitalize()}.")
+                        print(
+                            f"You have chosen {item_to_sell.name.capitalize()}.")
                         player.gold += int(item_to_sell.price/2)
                         player.inventory.remove(item_to_sell)
                         print(f"You now have {player.gold} gold left.")
@@ -34,5 +35,6 @@ class Reseller:
                         print(f"Sorry, you don't own the item {input_item}")
             else:
                 print("Sorry, you have nothing to sell.\nThanks for visiting!")
-                input_required = False
-        return player
+                break
+        game.player = player
+        return game

@@ -71,7 +71,8 @@ class Store:
     def construt(name):
         return Store(name, [Item({"name": item, **data}) for (item, data) in Store.stores[name]["items"].items()])
 
-    def enter(self, player):
+    def enter(self, game):
+        player = game.player
         while True:
             print(
                 f"Welcome to the {self.name}\nYou have {player.gold} gold to spend. This is what I'm selling:")
@@ -101,7 +102,8 @@ class Store:
                 else:
                     print(f"I do not sell '{user_input}'.")
 
-        return player
+        game.player = player
+        return game
 
     def listItems(self):
         for item in self.items:

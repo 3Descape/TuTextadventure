@@ -10,7 +10,8 @@ class Dungeon:
         self.current_room = 0
         self.rooms = self.generateRooms(4)
 
-    def enter(self, player):
+    def enter(self, game):
+        player = game.player
         print("You see a door in front of you..")
         dungeon = True
 
@@ -104,8 +105,8 @@ class Dungeon:
 
             else:
                 print("Invalid choice. Please try again.")
-
-        return player
+        game.player = player
+        return game
 
     def generateRooms(self, count):
         rooms = []
@@ -116,7 +117,8 @@ class Dungeon:
         wolf = Enemy(name="Wolf", health=40, attack=25,
                      defense=30, speed=60, reward=[10, 15])
 
-        item = Item({"name": "potion", **(Store.stores["druid"]["items"]["potion"])})
+        item = Item(
+            {"name": "potion", **(Store.stores["druid"]["items"]["potion"])})
         chest_empty = Chest([])
         chest = Chest([item])
 

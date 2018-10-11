@@ -1,13 +1,8 @@
 import argparse
 from Assets.Player import Player
-from Assets.Reseller import Reseller
-from Assets.Store import Store
-from Assets.Dungeon import Dungeon
+from Game import Game
 
-from Utils.Game import saveGame, loadGame
-
-
-import json
+from Menus import *
 
 
 def main():
@@ -25,33 +20,24 @@ def main():
     args = parser.parse_args()
     args = parser.parse_args()
 
-    player = None
     savefile = args.savefile
 
+    game = Game(savefile=savefile)
+
     if(args.new_game):
-        player = Player.character_setup()
+        game.initialize()
 
     else:
-        data = loadGame(savefile)
-        player = data['player']
+        game.load()
 
-    game = True
-    while game:
-        selection = None
-
-        while True:
+    while game.gameloop:
+        menu = True
+        while menu:
             print("Welcome to Prog0 Village! \nWhat do you want to do?")
 
-            print(
-                """
-                1) Inventory
-                2) Merchant
-                3) Blacksmith
-                4) Druid
-                5) Dungeon
-                6) Save game
-                0) Quit game
-                """)
+            for (option, data) in village_menu.items():
+                print(f"\t{option}) {data['name'].capitalize()}")
+
             option = input("> ")
 
             try:
@@ -59,44 +45,16 @@ def main():
             except:
                 pass
 
-            if(option in range(0, 7)):
-                selection = option
-                break
-            else:
+            found = False
+            for (option_iter, data) in village_menu.items():
+                if(option_iter == option):
+                    game = data["execute"](game)
+                    found = True
+                    menu = False
+                    break
+
+            if(not found):
                 print("Invalid choice. Try again.")
-
-        if(selection == 0):
-            should_save = input("Save before exiting? (Y/N)").lower()
-            if(should_save == "y"):
-                saveGame(savefile, player)
-                game = False
-
-            elif(should_save == "n"):
-                game = False
-
-            return
-
-        elif(selection == 1):
-            player.showInventory()
-
-        elif(selection == 2):
-            merchant = Reseller("merchant")
-            player = merchant.enter(player)
-
-        elif(selection == 3):
-            blacksmith = Store.construt("blacksmith")
-            player = blacksmith.enter(player)
-
-        elif(selection == 4):
-            druid = Store.construt("druid")
-            player = druid.enter(player)
-
-        elif(selection == 5):
-            dungeon = Dungeon()
-            dungeon.enter(player)
-
-        elif(selection == 6):
-            saveGame(savefile, player)
 
 
 if __name__ == "__main__":

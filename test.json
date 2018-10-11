@@ -1,0 +1,1 @@
+{"player": {"name": "d", "attack": 1, "defense": 4, "speed": 34, "gold": 97, "inventory": [{"name": "helmet", "price": 3, "effected_attribute": "defense", "effect_amount": 2, "usecase": "held", "__class__": "Item"}], "health": 100, "__class__": "Player"}}
