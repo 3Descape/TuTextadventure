@@ -33,7 +33,7 @@ def main():
     while game.gameloop:
         menu = True
         while menu:
-            print("Welcome to Prog0 Village! \nWhat do you want to do?")
+            print("Welcome to Prog0 Village! \nWhat do you want to do?\n")
 
             for (option, data) in village_menu.items():
                 print(f"\t{option}) {data['name'].capitalize()}")

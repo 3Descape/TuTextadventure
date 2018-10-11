@@ -106,6 +106,7 @@ class Store:
         return game
 
     def listItems(self):
+        print("\n")
         for item in self.items:
             name = format_r(item.name.title(), 20)
             price = format_l(item.price, 4)
@@ -113,3 +114,4 @@ class Store:
                              0 else "-") + str(item.effect_amount)
             print(
                 f"\t* {name} for {price} gold ({effect_amount} {item.effected_attribute} when {item.usecase})")
+        print("\n")

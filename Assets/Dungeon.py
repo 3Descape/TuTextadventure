@@ -16,14 +16,14 @@ class Dungeon:
         dungeon = True
 
         while dungeon:
-            print("What do you want to do?\n")
-            print("""
-                1) Inventory
-                2) Look Around
-                3) Attack
-                4) Open chest
-                5) Move
-                0) Run away (leave dungeon)
+            print("""What do you want to do?
+
+    1) Inventory
+    2) Look Around
+    3) Attack
+    4) Open chest
+    5) Move
+    0) Run away (leave dungeon)
                 """)
 
             selected_action = input("> ")

@@ -80,10 +80,10 @@ class Player:
                     print(
                         "Before you store your character please confirm your stats!")
                     print("Name:", name)
-                    print("Attributes:")
+                    print("Attributes:\n")
                     print("\t * Attack:", attack)
                     print("\t * Defense:", defense)
-                    print("\t * Speed:", speed)
+                    print("\t * Speed:", speed, "\n")
 
                     valid_input = False
 
@@ -107,13 +107,13 @@ class Player:
         while True:
             if(len(self.inventory)):
                 print(
-                    f"Welcome to your inventory {self.name}!\nThese are your items:")
+                    f"Welcome to your inventory {self.name}!\nThese are your items:\n")
                 for item in self.inventory:
                     prefix = "+" if item.effect_amount >= 0 else "-"
                     print(
                         f"\t* {item.name.capitalize().ljust(20, ' ')} ({prefix}{item.effect_amount} {item.effected_attribute} when {item.usecase})")
 
-                print("Type 'quit' or the name of the item you want to use/drop:")
+                print("\nType 'quit' or the name of the item you want to use/drop:")
 
                 user_input = input("> ").lower()
 

@@ -34,10 +34,12 @@ def menu_save_game(game):
 
 
 def menu_quit_game(game):
-    should_save = input("Save before exiting? (Y/N)").lower()
+    print("Save before exiting? (Y/N)")
+    should_save = input().lower()
     if(should_save == "y"):
         game.save()
         game.stop()
+        return
 
     elif(should_save == "n"):
         game.stop()
