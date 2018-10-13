@@ -14,12 +14,12 @@ def menu_merchant(game):
 
 
 def menu_blacksmith(game):
-    blacksmith = Store.construt("blacksmith")
+    blacksmith = Store.construt("blacksmith", game)
     return blacksmith.enter(game)
 
 
 def menu_druid(game):
-    druid = Store.construt("druid")
+    druid = Store.construt("druid", game)
     return druid.enter(game)
 
 
@@ -44,41 +44,71 @@ def menu_quit_game(game):
     return game
 
 
+def menu_treasure_chest(game):
+    game.player.showTreasureChest()
+    return game
+
+
+def menu_gravedigger(game):
+    gravedigger = Store("gravedigger", game.gravedigger_items.copy(), removeAfterSelling=True)
+    return gravedigger.enter(game)
+
+    # def menu_mercenary(game):
+    #     print("Mercenary")
+    #     return game
+
+
+def addBonusMenuItems():
+    menu = village_menu
+    quit_entry = village_menu.pop(0)
+
+    menu[8] = {
+        "name": "treasure chest",
+        "execute": menu_treasure_chest
+    }
+
+    menu[9] = {
+        "name": "gravedigger",
+        "execute": menu_gravedigger
+    }
+    # menu[7] = {
+    #     "name": "Mercenary",
+    #     "execute": menu_mercenary
+    # }
+
+    menu[0] = quit_entry
+
+
 village_menu = {
     1: {
         "name": "inventory",
-        "key": 1,
         "execute": menu_inventory
     },
     2: {
         "name": "merchant",
-        "key": 2,
         "execute": menu_merchant
 
     },
     3: {
         "name": "blacksmith",
-        "key": 3,
         "execute": menu_blacksmith
     },
     4: {
         "name": "druid",
-        "key": 4,
         "execute": menu_druid
     },
     5: {
         "name": "dungeon",
-        "key": 5,
         "execute": menu_dungeon
     },
     6: {
         "name": "save game",
-        "key": 6,
         "execute": menu_save_game
     },
     0: {
         "name": "quit game",
-        "key": 0,
         "execute": menu_quit_game
     }
+
+
 }

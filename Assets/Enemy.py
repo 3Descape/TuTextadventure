@@ -11,16 +11,16 @@ class Enemy:
         self.speed = speed
         self.reward = reward
 
-    def attackPlayer(self, player):
-        damage = floor((self.attack**2)/(self.attack + player.defense))
-        player.health -= damage
+    def attackPlayer(self, game):
+        damage = floor((self.attack**2)/(self.attack + game.player.defense))
+        game.player.health -= damage
         print(f"{self.name} attacked you and dealt {damage} damage.")
 
-        if(player.health < 1):
-            player.kill()
+        if(game.player.health < 1):
+            game = game.player.kill(game)
             print(f"You were killed by {self.name}.")
 
-        return player
+        return game
 
     def getReward(self):
         return randint(self.reward[0], self.reward[1])

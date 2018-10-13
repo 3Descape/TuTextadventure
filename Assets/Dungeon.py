@@ -61,13 +61,16 @@ class Dungeon:
                             if(isinstance(fighter, Enemy)):
 
                                 if(fighter.alive()):
-                                    player = fighter.attackPlayer(player)
+                                    game.player = player
+                                    game = fighter.attackPlayer(game)
+                                    player = game.player
 
                                     if(not player.alive()):
                                         player.respawn()
                                         fight = False
                                         dungeon = False
                                         break
+
                             else:
                                 room.updateEnemy(
                                     player.attackEnemy(selected_enemy))

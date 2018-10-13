@@ -1,8 +1,10 @@
 import argparse
 from Assets.Player import Player
 from Game import Game
+from Assets.Store import Store
 
 from Menus import *
+from Globals import *
 
 
 def main():
@@ -24,11 +26,20 @@ def main():
 
     game = Game(savefile=savefile)
 
+    if(args.print_bonus):
+        print("6, 7, 9")
+
     if(args.new_game):
         game.initialize()
 
     else:
-        game.load()
+        game.load(args.bonus_tasks)
+
+    if(args.bonus_tasks):
+        Store.addItem(store="blacksmith", item="war hammer", price=15, effects=[[EFFECT_ATTACK, 7], [EFFECT_SPEED, -5]], usecase=USECASE_HELD)
+        Store.addItem("blacksmith", "crystal sword", 10, [[EFFECT_ATTACK, 8], [EFFECT_DEFENSE, -3]], USECASE_HELD)
+
+        addBonusMenuItems()
 
     while game.gameloop:
         menu = True
