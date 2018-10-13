@@ -22,8 +22,6 @@ class Game:
         data = open(self.savefile, "r").read()
         decoded = decoder.decode(data)
         self.player = decoded["player"]
-        print("gravedigger_items" in decoded)
-        print(bonus_tasks)
         if(bonus_tasks):
             self.enableBonusTasks()
             if("gravedigger_items" in decoded):

@@ -6,4 +6,4 @@ EFFECT_HEALTH = "health"
 USECASE_HELD = "held"
 USECASE_USE = "used"
 
-DEBUG = True
+DEBUG = False

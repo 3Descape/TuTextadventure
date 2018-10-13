@@ -2,7 +2,7 @@ import argparse
 from Assets.Player import Player
 from Game import Game
 from Assets.Store import Store
-
+import os.path
 from Menus import *
 from Globals import *
 
@@ -25,11 +25,15 @@ def main():
     savefile = args.savefile
 
     game = Game(savefile=savefile)
+    new_game = args.new_game
+
+    if(not os.path.isfile(savefile)):
+        new_game = True
 
     if(args.print_bonus):
-        print("6, 7, 9")
+        print("6,7,9")
 
-    if(args.new_game):
+    if(new_game):
         game.initialize()
 
     else:

@@ -170,7 +170,7 @@ class Player:
                                 last_index = len(inventory_item.effects)-1
 
                                 for (index, effect) in enumerate(inventory_item.effects):
-                                    message = message + effect["effected_attribute"] + " by " + inventory_item.prefix(effect) + str(effect["effect_amount"])
+                                    message = message + effect["effected_attribute"] + " by " + str(effect["effect_amount"])
                                     if(index != last_index):
                                         message = message + ", "
 
