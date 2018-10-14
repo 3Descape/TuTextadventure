@@ -1,31 +1,26 @@
 import argparse
-from Assets.Player import Player
-from Game import Game
-from Assets.Store import Store
 import os.path
-from Menus import *
-from Globals import *
+
+from Assets.Player import Player
+from Assets.Store import Store
+from Game import Game
+from Globals import EFFECT_ATTACK, EFFECT_SPEED, EFFECT_DEFENSE, USECASE_HELD
+from Menus import village_menu, addBonusMenuItems
 
 
 def main():
 
     parser = argparse.ArgumentParser()
-
-    parser.add_argument('--savefile', default="game.json",
-                        help="The save file. default: 'game.json'")
-    parser.add_argument("--new-game", dest="new_game", default=False, action='store_true',
-                        help="Create a new save file.")
-    parser.add_argument("-b", dest="bonus_tasks", default=False,
-                        action="store_true", help='enable bonus tasks')
-    parser.add_argument("--print-bonus", dest="print_bonus", default=False,
-                        action="store_true", help='print bonus task list and exit')
-    args = parser.parse_args()
+    parser.add_argument('--savefile', default="game.json", help="The save file. default: 'game.json'")
+    parser.add_argument("--new-game", dest="new_game", default=False, action='store_true', help="Create a new save file.")
+    parser.add_argument("-b", dest="bonus_tasks", default=False, action="store_true", help='enable bonus tasks')
+    parser.add_argument("--print-bonus", dest="print_bonus", default=False, action="store_true", help='print bonus task list and exit')
     args = parser.parse_args()
 
     savefile = args.savefile
+    new_game = args.new_game
 
     game = Game(savefile=savefile)
-    new_game = args.new_game
 
     if(not os.path.isfile(savefile)):
         new_game = True
@@ -35,7 +30,6 @@ def main():
 
     if(new_game):
         game.initialize()
-
     else:
         game.load(args.bonus_tasks)
 
