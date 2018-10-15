@@ -13,10 +13,10 @@ class Dungeon:
         self.rooms = self.generateRooms(4)
 
     def enter(self, game):
-        if(game.bonus_tasks):
-            self.rooms = self.generateAdvancedRooms()
-        else:
-            self.rooms = self.generateRooms(4)
+        # if(game.bonus_tasks):
+        # self.rooms = self.generateAdvancedRooms()
+        # else:
+        #     self.rooms = self.generateRooms(4)
 
         player = game.player
         print("You see a door in front of you..")
@@ -59,8 +59,13 @@ class Dungeon:
                     selected_enemy = int(input("> "))
 
                     if(0 < selected_enemy <= len(room.enemies)):
-                        fighters = [player] + room.enemies
-                        fighters = reversed(sorted(fighters, key=lambda fighter: fighter.speed))
+                        external_fighters = [player]
+                        if(game.bonus_tasks):
+                            external_fighters.append(game.player.mercenary)
+
+                        fighters = external_fighters + room.enemies
+                        fighters = reversed(
+                            sorted(fighters, key=lambda fighter: fighter.speed))
                         selected_enemy = room.enemies[selected_enemy-1]
 
                         for fighter in fighters:
@@ -78,14 +83,30 @@ class Dungeon:
                                         break
 
                             else:
-                                room.updateEnemy(
-                                    player.attackEnemy(selected_enemy))
+                                if(fighter == game.player):
+                                    room.updateEnemy(
+                                        player.attackEnemy(selected_enemy))
+
+                                else:
+                                    enemy_ = room.getFirstEnemy()
+
+                                    if(enemy_ != None):
+                                        enemy, player = fighter.mercenaryAttackEnemy(
+                                            enemy_, player)
+                                        room.updateEnemy(enemy)
 
                         if(not room.hasEnemies()):
-                            print("All enemies defeated.\nYou are alone in this room.")
+                            print(
+                                "All enemies defeated.\nYou are alone in this room.")
                             fight = False
                     else:
-                        print(f"Please input a positive integer between 1 and {len(room.enemies)}")
+                        print(
+                            f"Please input a positive integer between 1 and {len(room.enemies)}")
+
+                if(game.bonus_tasks and "mercenary" in player.__dict__):
+                    player.gold -= player.mercenary.gold
+                    print(
+                        f"You paid {player.mercenary.name} a wage of {player.mercenary.gold} gold.")
 
             elif(selected_action == 4):
                 if(not room.hasEnemies()):
@@ -128,12 +149,16 @@ class Dungeon:
 
     def generateRooms(self, count):
         rooms = []
-        rat = Enemy(name="Rat", health=30, attack=10, defense=15, speed=50, reward=[1, 5])
-        gnoll = Enemy(name="Gnoll", health=60, attack=30, defense=40, speed=20, reward=[5, 10])
-        wolf = Enemy(name="Wolf", health=40, attack=25, defense=30, speed=60, reward=[10, 15])
+        rat = Enemy(name="Rat", health=30, attack=10,
+                    defense=15, speed=50, reward=[1, 5])
+        gnoll = Enemy(name="Gnoll", health=60, attack=30,
+                      defense=40, speed=20, reward=[5, 10])
+        wolf = Enemy(name="Wolf", health=40, attack=25,
+                     defense=30, speed=60, reward=[10, 15])
 
         chest_empty = Chest([])
-        item = Item({"name": "potion", **(Store.stores["druid"]["items"]["potion"])})
+        item = Item(
+            {"name": "potion", **(Store.stores["druid"]["items"]["potion"])})
         chest = Chest([item])
 
         for i in range(self.current_room, self.current_room + count):
@@ -155,14 +180,27 @@ class Dungeon:
 
             rooms.append(rooms_row)
 
-        rooms[0][0] = "x"
-        print(self.chechSoroundingRooms(rooms, 0, 0))
-        # for y in range(len(rooms)-1):
-        #     for x in range(len(rooms[y])-1):
-        #         mask = self.chechSoroundingRooms(rooms, x, y)
-        #         print(f"X: {x}, Y: {y}")
-        #         print(mask)
-        # rooms[x][y] = str(x) + ", " + str(y)
+        # rooms[2][2] = "x"
+        # print(self.chechSoroundingRooms(rooms, 2, 2))
+        for y in range(len(rooms)):
+            for x in range(len(rooms[y])):
+                mask = self.chechSoroundingRooms(rooms, x, y)
+
+                valid_masks = [
+                    0b10000000,
+                    0b00100000,
+                    0b00001000,
+                    0b00000010,
+                ]
+
+                has_neighbour = 0
+
+                for position in valid_masks:
+                    if(mask & position == position):
+                        has_neighbour += 1
+
+                print(f"X: {x}, Y: {y} : {has_neighbour}")
+                # print(mask)
 
         for i in rooms:
             print(i)
@@ -185,7 +223,6 @@ class Dungeon:
                 x_ = x+j
                 # 00 ist rechts oben
                 y_ = y-i
-
                 if(x_ < 0):
                     # left doesn't exist
                     mask = mask & 0b11111000
@@ -195,10 +232,10 @@ class Dungeon:
 
                 if(y_ < 0):
                     # bottom doesn't exist
-                    mask = mask & 0b11100011
+                    mask = mask & 0b00111110
                 elif(y_ > y_max):
                     # top don't exitst
-                    mask = mask & 0b00111110
+                    mask = mask & 0b11100011
 
                 if(x_ <= x_max and x_ >= 0):
                     if(y_ <= y_max and y_ >= 0):
@@ -220,4 +257,5 @@ class Dungeon:
                             elif(j == -1 and i == 1):
                                 mask = mask & 0b11111110
 
-        return str(bin(mask))[2:].rjust(8, "0")
+        # return str(bin(mask))[2:].rjust(8, "0")
+        return mask

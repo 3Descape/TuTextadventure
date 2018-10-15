@@ -22,6 +22,9 @@ class Game:
         data = open(self.savefile, "r").read()
         decoded = decoder.decode(data)
         self.player = decoded["player"]
+        if("mercenary" in self.player.__dict__ and bonus_tasks == False):
+            del self.player.mercenary
+
         if(bonus_tasks):
             self.enableBonusTasks()
             if("gravedigger_items" in decoded):
@@ -29,13 +32,16 @@ class Game:
 
     def save(self):
         file = open(self.savefile, "w")
+        print(self.bonus_tasks)
         data = {
-            "player": self.player.tojson()
+            "player": self.player.tojson(self.bonus_tasks)
         }
 
         if(self.bonus_tasks):
             encoder = CustomEncoder()
-            data["gravedigger_items"] = [encoder.default(item) for item in self.gravedigger_items]
+            if("gravedigger_items" in data):
+                data["gravedigger_items"] = [encoder.default(
+                    item) for item in self.gravedigger_items]
 
         json.dump(data, file)
         file.close()
