@@ -69,11 +69,25 @@ class Dungeon:
                         selected_enemy = room.enemies[selected_enemy-1]
 
                         for fighter in fighters:
-                            if(isinstance(fighter, Enemy)):
 
+                            if(isinstance(fighter, Enemy)):
                                 if(fighter.alive()):
                                     game.player = player
-                                    game = fighter.attackPlayer(game)
+                                    if(game.bonus_tasks):
+                                        player_ = game.player
+                                        if(player_.hasMercenary()):
+                                            if(player_.health < player_.mercenary.health):
+                                                game = fighter.attackMercenary(
+                                                    game)
+                                            else:
+                                                game = fighter.attackPlayer(
+                                                    game)
+                                        else:
+                                            game = fighter.attackPlayer(game)
+
+                                    else:
+                                        game = fighter.attackPlayer(game)
+
                                     player = game.player
 
                                     if(not player.alive()):
@@ -103,7 +117,7 @@ class Dungeon:
                         print(
                             f"Please input a positive integer between 1 and {len(room.enemies)}")
 
-                if(game.bonus_tasks and "mercenary" in player.__dict__):
+                if(game.bonus_tasks and "mercenary" in player.__dict__ and player.mercenary != None):
                     player.gold -= player.mercenary.gold
                     print(
                         f"You paid {player.mercenary.name} a wage of {player.mercenary.gold} gold.")

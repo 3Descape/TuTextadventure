@@ -75,7 +75,7 @@ class MercenaryStore:
                     break
 
             else:
-                print("You have already lented a mercenary.")
+                print(f"You have already lented {game.player.mercenary.name}.")
                 print("Do you want to bring him back? Yes/No")
                 user_input = input(">").lower()
 

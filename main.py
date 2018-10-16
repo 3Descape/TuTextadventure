@@ -30,7 +30,11 @@ def main():
         new_game = True
 
     if(args.print_bonus):
-        print("6,7,9")
+        #3 Söldner
+        #6 Totengräber
+        #7 Schatztruhe
+        #9 Waffen/Schilder
+        print("3,6,7,9")
 
     if(new_game):
         game.initialize()
@@ -42,7 +46,8 @@ def main():
                       [EFFECT_ATTACK, 7], [EFFECT_SPEED, -5]], usecase=USECASE_HELD)
         Store.addItem("blacksmith", "crystal sword", 10, [
                       [EFFECT_ATTACK, 8], [EFFECT_DEFENSE, -3]], USECASE_HELD)
-
+        Store.addItem("blacksmith", "shield", 10, [
+                      [EFFECT_ATTACK, -4], [EFFECT_DEFENSE, 14]], USECASE_HELD)
         addBonusMenuItems()
 
     while game.gameloop:

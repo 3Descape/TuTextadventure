@@ -32,7 +32,6 @@ class Game:
 
     def save(self):
         file = open(self.savefile, "w")
-        print(self.bonus_tasks)
         data = {
             "player": self.player.tojson(self.bonus_tasks)
         }
