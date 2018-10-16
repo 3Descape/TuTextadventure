@@ -237,6 +237,8 @@ class Player:
                 game.gravedigger_items.append(item)
 
         self.inventory = []
+        if(game.bonus_tasks and self.hasMercenary()):
+            del self.mercenary
         return game
 
     def respawn(self):
@@ -259,7 +261,7 @@ class Player:
     def mercenaryAttackEnemy(self, enemy, player):
         damage = floor((self.attack**2)/(self.attack + enemy.defense))
         enemy.health -= damage
-        print(f"{self.name} attacked {enemy.name} and dealt {damage} damage.")
+        print(f"{self.name.title()} attacked {enemy.name} and dealt {damage} damage.")
         if(not enemy.alive()):
             reward = enemy.getReward()
             player.gold += reward
@@ -327,5 +329,6 @@ class Player:
         json["inventory"] = [encoder.default(item) for item in self.inventory]
         json["chest"] = [encoder.default(item) for item in self.chest]
         if(bonus_tasks):
-            json["mercenary"] = encoder.default(self.mercenary)
+            if(self.hasMercenary()):
+                json["mercenary"] = encoder.default(self.mercenary)
         return json

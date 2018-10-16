@@ -9,31 +9,31 @@ class MercenaryStore:
 
     def generateMercenaries(self):
         mercenaries = {
-            "Herman": {
+            "herman": {
                 "speed": 20,
                 "attack": 10,
                 "defense": 3,
                 "gold": 5
             },
-            "Endres": {
+            "endres": {
                 "speed": 10,
                 "attack": 7,
                 "defense": 10,
                 "gold": 3
             },
-            "Erhardt": {
+            "erhardt": {
                 "speed": 15,
                 "attack": 4,
                 "defense": 14,
                 "gold": 4
             },
-            "Steffan": {
+            "steffan": {
                 "speed": 20,
                 "attack": 20,
                 "defense": 7,
                 "gold": 7
             },
-            "Thomas": {
+            "thomas": {
                 "speed": 3,
                 "attack": 10,
                 "defense": 30,
@@ -42,8 +42,7 @@ class MercenaryStore:
         }
 
         for (mercenary, data) in mercenaries.items():
-            temp = Player({
-                "name": mercenary, "speed": data["speed"], "attack": data["attack"], "defense": data["defense"], "gold": data["gold"]})
+            temp = Player({"name": mercenary, "speed": data["speed"], "attack": data["attack"], "defense": data["defense"], "gold": data["gold"]})
             self.mercenaries.append(temp)
 
     def enter(self, game):
@@ -51,11 +50,12 @@ class MercenaryStore:
 
         while True:
             if(not player.hasMercenary()):
-                print(
-                    f"Welcome to the mercenary store\nYou have {player.gold} gold to spend. These are the mercenaries that you can lent:")
+
+                print(f"Welcome to the mercenary store\nYou have {player.gold} gold to spend. These are the mercenaries that you can lent:")
 
                 for m in self.mercenaries:
-                    print(f"{m.name.ljust(10, ' ')}, for {str(m.gold).rjust(2, ' ')} gold per fight. Speed: {str(m.speed).rjust(2, ' ')}, Attack: {str(m.attack).rjust(2, ' ')}, Defense: {str(m.defense).rjust(2, ' ')}")
+                    print(f"{m.name.title().ljust(10, ' ')}, for {str(m.gold).rjust(2, ' ')} gold per fight. Speed: {str(m.speed).rjust(2, ' ')}, \
+                          Attack: {str(m.attack).rjust(2, ' ')}, Defense: {str(m.defense).rjust(2, ' ')}")
 
                 print("\nType the name of the mercenary you want to hire or 'quit'.")
                 name = input("> ").lower()
@@ -66,7 +66,7 @@ class MercenaryStore:
                 found = None
 
                 for m in self.mercenaries:
-                    if(m.name.lower() == name):
+                    if(m.name == name):
                         found = m
                 if(found == None):
                     print("We could not find a mercenary with that name. Try it again!")
@@ -75,7 +75,7 @@ class MercenaryStore:
                     break
 
             else:
-                print(f"You have already lented {game.player.mercenary.name}.")
+                print(f"You have already lented {game.player.mercenary.name.title()}.")
                 print("Do you want to bring him back? Yes/No")
                 user_input = input(">").lower()
 

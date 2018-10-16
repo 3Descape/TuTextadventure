@@ -23,15 +23,13 @@ class Enemy:
         return game
 
     def attackMercenary(self, game):
-        damage = floor((self.attack**2) / (self.attack +
-                                           game.player.mercenary.defense))
+        damage = floor((self.attack**2) / (self.attack + game.player.mercenary.defense))
         game.player.mercenary.health -= damage
-        print(
-            f"{self.name} attacked {game.player.mercenary.name} and dealt {damage} damage.")
+        print(f"{self.name} attacked {game.player.mercenary.name.title()} and dealt {damage} damage.")
 
         if(game.player.mercenary.health < 1):
-            print(f"{game.player.mercenary.n} was killed by {self.name}.")
-            game = game.player.mercenary = None
+            print(f"{game.player.mercenary.name.title()} was killed by {self.name}.")
+            del game.player.mercenary
 
         return game
 
