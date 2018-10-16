@@ -1,6 +1,7 @@
 from Assets.Reseller import Reseller
 from Assets.Store import Store
 from Assets.Dungeon import Dungeon
+from Assets.MercenaryStore import MercenaryStore
 
 
 def menu_inventory(game):
@@ -50,12 +51,15 @@ def menu_treasure_chest(game):
 
 
 def menu_gravedigger(game):
-    gravedigger = Store("gravedigger", game.gravedigger_items.copy(), removeAfterSelling=True)
+    gravedigger = Store(
+        "gravedigger", game.gravedigger_items.copy(), removeAfterSelling=True)
     return gravedigger.enter(game)
 
-    # def menu_mercenary(game):
-    #     print("Mercenary")
-    #     return game
+
+def menu_mercenary(game):
+    mercenary = MercenaryStore()
+
+    return mercenary.enter(game)
 
 
 def addBonusMenuItems():
@@ -71,10 +75,10 @@ def addBonusMenuItems():
         "name": "gravedigger",
         "execute": menu_gravedigger
     }
-    # menu[7] = {
-    #     "name": "Mercenary",
-    #     "execute": menu_mercenary
-    # }
+    menu[10] = {
+        "name": "Mercenary",
+        "execute": menu_mercenary
+    }
 
     menu[0] = quit_entry
 

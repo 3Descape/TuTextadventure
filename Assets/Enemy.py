@@ -22,6 +22,19 @@ class Enemy:
 
         return game
 
+    def attackMercenary(self, game):
+        damage = floor((self.attack**2) / (self.attack +
+                                           game.player.mercenary.defense))
+        game.player.mercenary.health -= damage
+        print(
+            f"{self.name} attacked {game.player.mercenary.name} and dealt {damage} damage.")
+
+        if(game.player.mercenary.health < 1):
+            print(f"{game.player.mercenary.n} was killed by {self.name}.")
+            game = game.player.mercenary = None
+
+        return game
+
     def getReward(self):
         return randint(self.reward[0], self.reward[1])
 
