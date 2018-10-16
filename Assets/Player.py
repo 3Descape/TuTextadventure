@@ -42,7 +42,7 @@ class Player:
 
         return False
 
-        def mercenaryAttackEnemy(self, enemy, player):
+    def mercenaryAttackEnemy(self, enemy, player):
         damage = floor((self.attack**2)/(self.attack + enemy.defense))
         enemy.health -= damage
         print(f"{self.name.title()} attacked {enemy.name} and dealt {damage} damage.")
@@ -55,11 +55,13 @@ class Player:
 
     def applyItemEffect(self, item):
         for effect in item.effects:
-            self.applyEffect(effect["effected_attribute"], effect["effect_amount"])
+            self.applyEffect(effect["effected_attribute"],
+                             effect["effect_amount"])
 
     def removeItemEffect(self, item):
         for effect in item.effects:
-            self.applyEffect(effect["effected_attribute"], -effect["effect_amount"])
+            self.applyEffect(
+                effect["effected_attribute"], -effect["effect_amount"])
 
     def applyEffect(self, effected_attribute, effect_amount):
         setattr(self, effected_attribute, getattr(
@@ -99,7 +101,8 @@ class Player:
             input_required = True
             while input_required:
                 print("You have 100 points to assign to your character.")
-                print("Start now to assign those Points to your characters attack, defense and speed.")
+                print(
+                    "Start now to assign those Points to your characters attack, defense and speed.")
 
                 used = 0
 
@@ -134,7 +137,8 @@ class Player:
                             print("Please enter Y/y for yes and N/n for no!")
 
                 else:
-                    print("Sorry, it seems like you spent more than 100 ability points on your character... Try that again!")
+                    print(
+                        "Sorry, it seems like you spent more than 100 ability points on your character... Try that again!")
 
         return Player({"name": name, "attack": attack, "defense": defense, "speed": speed, "gold": 100, "inventory": [], "health": 100})
 
@@ -161,10 +165,12 @@ class Player:
     def showInventory(self):
         while True:
             if(len(self.inventory)):
-                print(f"Welcome to your inventory {self.name}!\nThese are your items:\n")
+                print(
+                    f"Welcome to your inventory {self.name}!\nThese are your items:\n")
 
                 for item in self.inventory:
-                    print(f"\t* {item.name.capitalize().ljust(20, ' ')} ({item.effectDescription()} when {item.usecase})")
+                    print(
+                        f"\t* {item.name.capitalize().ljust(20, ' ')} ({item.effectDescription()} when {item.usecase})")
 
                 print("\nType 'quit' or the name of the item you want to use/drop:")
 
@@ -177,7 +183,8 @@ class Player:
                     inventory_item = self.findInventoryItem(user_input)
 
                     if(inventory_item != None):
-                        print(f"Do you want to 'use' or 'drop' {inventory_item.name.capitalize()}? Else 'quit'.\n")
+                        print(
+                            f"Do you want to 'use' or 'drop' {inventory_item.name.capitalize()}? Else 'quit'.\n")
 
                         action = input("> ").lower()
 
@@ -186,7 +193,8 @@ class Player:
                                 self.removeItemEffect(inventory_item)
 
                             self.inventory.remove(inventory_item)
-                            print(f"You dropped {inventory_item.name.capitalize()}.")
+                            print(
+                                f"You dropped {inventory_item.name.capitalize()}.")
                             break
 
                         elif(action == "use"):
@@ -194,12 +202,15 @@ class Player:
                                 self.applyItemEffect(inventory_item)
                                 self.inventory.remove(inventory_item)
 
-                                print(f"You used {inventory_item.name.capitalize()}.")
+                                print(
+                                    f"You used {inventory_item.name.capitalize()}.")
                                 message = ""
                                 last_index = len(inventory_item.effects)-1
 
                                 for (index, effect) in enumerate(inventory_item.effects):
-                                    message = message + effect["effected_attribute"] + " by " + str(effect["effect_amount"])
+                                    message = message + \
+                                        effect["effected_attribute"] + \
+                                        " by " + str(effect["effect_amount"])
                                     if(index != last_index):
                                         message = message + ", "
 
@@ -208,7 +219,9 @@ class Player:
                                 stats = ""
 
                                 for (index, effect) in enumerate(inventory_item.effects):
-                                    stats = stats + str(getattr(self, effect["effected_attribute"])) + " " + effect["effected_attribute"]
+                                    stats = stats + \
+                                        str(getattr(
+                                            self, effect["effected_attribute"])) + " " + effect["effected_attribute"]
                                     if(index != last_index):
                                         stats = stats + ", "
 
@@ -261,7 +274,8 @@ class Player:
                 print("You have the following items in your inventory:")
 
                 for item in self.inventory:
-                    print(f"\t* {item.name.capitalize().ljust(20, ' ')} ({item.effectDescription()} when {item.usecase})")
+                    print(
+                        f"\t* {item.name.capitalize().ljust(20, ' ')} ({item.effectDescription()} when {item.usecase})")
                 print("")
             else:
                 print("Your inventory is empty.\n")
@@ -269,7 +283,8 @@ class Player:
             if(len(self.chest)):
                 print("You have the following items in your chest.")
                 for item in self.chest:
-                    print(f"\t* {item.name.capitalize().ljust(20, ' ')} ({item.effectDescription()} when {item.usecase})")
+                    print(
+                        f"\t* {item.name.capitalize().ljust(20, ' ')} ({item.effectDescription()} when {item.usecase})")
                 print("")
             else:
                 print("Your treasure chest is empty.\n")
@@ -279,7 +294,8 @@ class Player:
             action = input("> ").lower()
 
             if(action == "chest"):
-                print("Type the name of the item you want to put back into your inventory.")
+                print(
+                    "Type the name of the item you want to put back into your inventory.")
                 item_name = input(">").lower()
                 print(item_name)
                 item = self.findChestItem(item_name)
@@ -291,7 +307,8 @@ class Player:
                     self.chest.remove(item)
 
             elif(action == "inventory"):
-                print("Type the name of the item you want to put into your treasure chest.")
+                print(
+                    "Type the name of the item you want to put into your treasure chest.")
                 item_name = input(">").lower()
                 item = self.findInventoryItem(item_name)
 
