@@ -14,6 +14,7 @@ class Chest:
                 player.inventory.append(item)
 
             return player
+
         else:
             print("The chest is empty.")
             return player

@@ -3,18 +3,18 @@ class Room:
         self.enemies = enemies
         self.chest = chest
 
+    def getFirstEnemy(self):
+        if(len(self.enemies)):
+            return self.enemies[0]
+
+        return None
+
     def hasEnemies(self):
         return len(self.enemies) > 0
 
     def showEnemies(self):
         for index, enemy in enumerate(self.enemies):
             print(f"\t{index+1}) {enemy.name.ljust(15, ' ')} ({enemy.health} HP)")
-
-    def getFirstEnemy(self):
-        if(len(self.enemies)):
-            return self.enemies[0]
-
-        return None
 
     def updateEnemy(self, enemy):
         for index, e in enumerate(self.enemies):

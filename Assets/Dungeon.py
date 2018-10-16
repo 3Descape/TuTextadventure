@@ -13,11 +13,6 @@ class Dungeon:
         self.rooms = self.generateRooms(4)
 
     def enter(self, game):
-        # if(game.bonus_tasks):
-        # self.rooms = self.generateAdvancedRooms()
-        # else:
-        #     self.rooms = self.generateRooms(4)
-
         player = game.player
         print("You see a door in front of you..")
         dungeon = True
@@ -34,6 +29,7 @@ class Dungeon:
                 """)
 
             selected_action = input("> ")
+
             try:
                 selected_action = int(selected_action)
             except:
@@ -69,6 +65,7 @@ class Dungeon:
                     if(isinstance(selected_enemy, int)):
                         if(0 < selected_enemy <= len(room.enemies)):
                             external_fighters = [player]
+
                             if(game.bonus_tasks and game.player.hasMercenary()):
                                 external_fighters.append(game.player.mercenary)
 
@@ -90,7 +87,6 @@ class Dungeon:
                                                     game = fighter.attackPlayer(game)
                                             else:
                                                 game = fighter.attackPlayer(game)
-
                                         else:
                                             game = fighter.attackPlayer(game)
 

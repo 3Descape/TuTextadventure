@@ -58,6 +58,7 @@ class MercenaryStore:
                           Attack: {str(m.attack).rjust(2, ' ')}, Defense: {str(m.defense).rjust(2, ' ')}")
 
                 print("\nType the name of the mercenary you want to hire or 'quit'.")
+
                 name = input("> ").lower()
 
                 if(name == "quit"):

@@ -4,13 +4,12 @@ class Reseller:
 
     def enter(self, game):
         player = game.player
+
         while True:
             if(len(player.inventory)):
-                print(
-                    f"Welcome to the {self.name}!\nYou have {player.gold} gold. This is what I would pay for your items:")
+                print(f"Welcome to the {self.name}!\nYou have {player.gold} gold. This is what I would pay for your items:")
                 for item in player.inventory:
-                    print(
-                        f"\t* {item.name.capitalize().ljust(20, ' ')} for{str(int(item.price/2)).rjust(5, ' ')} gold")
+                    print(f"\t* {item.name.capitalize().ljust(20, ' ')} for{str(int(item.price/2)).rjust(5, ' ')} gold")
 
                 print("Type 'quit' or the name of the item you want to sell.")
 
@@ -25,8 +24,7 @@ class Reseller:
                             item_to_sell = item
 
                     if(item_to_sell != None):
-                        print(
-                            f"You have chosen {item_to_sell.name.capitalize()}.")
+                        print(f"You have chosen {item_to_sell.name.capitalize()}.")
                         player.gold += int(item_to_sell.price/2)
                         player.inventory.remove(item_to_sell)
                         print(f"You now have {player.gold} gold left.")
@@ -36,5 +34,7 @@ class Reseller:
             else:
                 print("Sorry, you have nothing to sell.\nThanks for visiting!")
                 break
+
         game.player = player
+
         return game
